@@ -105,7 +105,7 @@ def makeplot(id,mfs,lfs):
 '''
 # :iphone: Robust Kernelised Composite Goodness-of-Fit Testing for Conditional Relationships Supplemental Web App
 
-Hello! This a Streamlit-powered web app to support a poster made for RSC Exeter 2024. This contextualises a figure profiling the power of a statistical test presented on the poster, namely by letting the reader see the data and the underlying behaviour thereof as well as the quadratic models fitted by the proposed and conventional methods and the corresponding Goodness-of-Fit confidences recorded.
+Hello! This a Streamlit-powered web app to support a poster made for RSC Exeter 2024. This contextualises a figure profiling the power of a statistical test presented on the poster, namely by letting the reader see the data and the underlying behaviour thereof as well as the quadratic models fitted by the proposed and conventional methods and the corresponding Goodness-of-Fit confidences recorded. Only keeping the app open if it's in use would be deeply appreciated, as the overall resources available to this app are limited.
 '''
 
 # Add some spacing
