@@ -23,7 +23,7 @@ def preparecLspace():
     cLspace = [None]*400
 
     stribuff = str(i)
-    Abuffer = '/workspaces/RSC2024Repo/PowerTestData' + stribuff + '.h5'
+    Abuffer = 'PowerTestData' + stribuff + '.h5'
     with h5.File(Abuffer,'r') as A:
         cL = quickget('cL',A)
         A.close()
@@ -31,7 +31,7 @@ def preparecLspace():
 
     for i in range(1,400):
         stribuff = str(i)
-        Abuffer = '/workspaces/RSC2024Repo/PowerTestData' + stribuff + '.h5'
+        Abuffer = 'PowerTestData' + stribuff + '.h5'
         with h5.File(Abuffer,'r') as A:
             cL = quickget('cL',A)
             A.close()
@@ -42,7 +42,7 @@ def preparecLspace():
 @st.cache_data
 def preparetestlevelsandfits():
 
-    Bbuffer = '/workspaces/RSC2024Repo/PowerTestFits.h5'
+    Bbuffer = 'PowerTestFits.h5'
     with h5.File(Bbuffer,'r') as B:
         mmdlevelspace = quickget('MMDLevel',B)
         lsqlevelspace = quickget('LSQLevel',B)
@@ -55,7 +55,7 @@ def preparetestlevelsandfits():
 @st.cache_data
 def prepareplotdata(rs):
 
-    Cbuffer = '/workspaces/RSC2024Repo/PowerTestData' + rs + '.h5'
+    Cbuffer = 'PowerTestData' + rs + '.h5'
 
     with h5.File(Cbuffer,'r') as C:
         a = quickget('a',C)
