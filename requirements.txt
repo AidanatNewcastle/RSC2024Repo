@@ -1,4 +1,5 @@
 streamlit
 pandas
 h5py
-numpy
+jax
+matplotlib
