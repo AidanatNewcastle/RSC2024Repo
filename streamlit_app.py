@@ -120,7 +120,6 @@ But it's otherwise a great (and did I mention _free_?) source of data.
 MLS, LLS, MFS, LFS = preparetestlevelsandfits()
 cLs = preparecLspace()
 cLselector = st.slider(label = 'Slide a test number to get a better look at the test! Drawing the slider up increases the cL tested.',min_value=0,max_value=399,value = 20,step=1)
-cLselected = cLs[cLsselector]
 st.write('Power Test No.'+ str(cLselector) + ', cL = ', str(cLs[cLselector]))
 st.write('Proposed Test Level = ' + str(MLS[cLselector]))
 st.write('MEP-CvM Test Level = ' + str(LLS[cLselector]))
