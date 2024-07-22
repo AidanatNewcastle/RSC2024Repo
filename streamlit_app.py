@@ -82,6 +82,7 @@ def makeplot(id,mfs,lfs):
     lspa = lp[0]*(xspa**2) + lp[1]*xspa + lp[2]
 
     xspa = xspa/l
+    xspa.flatten()
 
     fig, ax = plt.subplots()
 
