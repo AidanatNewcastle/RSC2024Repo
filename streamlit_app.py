@@ -1,8 +1,5 @@
 import streamlit as st
-import pandas as pd
-import math
 import jax.numpy as np
-from jax import jit
 import h5py as h5
 import matplotlib.pyplot as plt
 from pathlib import Path
@@ -19,7 +16,6 @@ st.set_page_config(
 def quickget(ds,h5f):
     return np.array(h5f.get(ds))
 
-@jit
 @st.cache_data
 def preparecLspace():
 
@@ -27,28 +23,27 @@ def preparecLspace():
     cLspace = [None]*400
 
     stribuff = str(i)
-    Abuffer = 'PowerTestData' + stribuff + '.h5'
-    with A as h5.File(Abuffer,'r'):
+    Abuffer = '/workspaces/RSC2024Repo/PowerTestData' + stribuff + '.h5'
+    with h5.File(Abuffer,'r') as A:
         cL = quickget('cL',A)
         A.close()
     cLspace[i] = cL
 
     for i in range(1,400):
-            stribuff = str(i)
-        Abuffer = 'PowerTestData' + stribuff + '.h5'
-        with A as h5.File(Abuffer,'r'):
+        stribuff = str(i)
+        Abuffer = '/workspaces/RSC2024Repo/PowerTestData' + stribuff + '.h5'
+        with h5.File(Abuffer,'r') as A:
             cL = quickget('cL',A)
             A.close()
         cLspace[i] = cL
 
     return np.array(cLspace).flatten()
 
-@jit
 @st.cache_data
 def preparetestlevelsandfits():
 
-    Bbuffer = 'PowerTestFits.h5'
-    with B as h5.File(Bbuffer,'r')
+    Bbuffer = '/workspaces/RSC2024Repo/PowerTestFits.h5'
+    with h5.File(Bbuffer,'r') as B:
         mmdlevelspace = quickget('MMDLevel',B)
         lsqlevelspace = quickget('LSQLevel',B)
         mmdfitspace = quickget('MMDFit',B)
@@ -57,13 +52,12 @@ def preparetestlevelsandfits():
 
     return mmdlevelspace, lsqlevelspace, mmdfitspace, lsqfitspace
 
-@jit
 @st.cache_data
 def prepareplotdata(rs):
 
-    Cbuffer = 'PowerTestData' + rs + '.h5'
+    Cbuffer = '/workspaces/RSC2024Repo/PowerTestData' + rs + '.h5'
 
-    with C as h5.File(Cbuffer,'r'):
+    with h5.File(Cbuffer,'r') as C:
         a = quickget('a',C)
         b = quickget('b',C)
         L = quickget('L',C)
@@ -74,29 +68,29 @@ def prepareplotdata(rs):
     
     yspace = a + b*np.exp(np.linspace(-cL,cL,1000))
 
-    return tsample,xsample,yspace,L
+    return tsample,xsample,yspace.flatten(),L
 
 def makeplot(id,mfs,lfs):
     
     ids = str(id)
     tsam,xsam,yspa,l = prepareplotdata(ids)
-    xspa = np.linspace(-l,l,1000)
+    xspa = np.linspace(-l,l,1000).flatten()
 
-    mp = mfs[:,id]
+    mp = mfs[id]
     mspa = mp[0]*(xspa**2) + mp[1]*xspa + mp[2]
-    lp = lfs[:,id]
+    lp = lfs[id]
     lspa = lp[0]*(xspa**2) + lp[1]*xspa + lp[2]
 
     fig, ax = plt.subplots()
 
     ax.scatter(tsam,xsam, color = (0.0,0.0,0.0), label = 'Generated Data')
-    ax.plot(xspa,yspa, color = (0.0,0.0,0.0) label = 'True Trend')
+    ax.plot(xspa,yspa, color = (0.0,0.0,0.0), label = 'True Trend')
     ax.plot(xspa,mspa, color = (0.0,0.247058823529412,0.447058823529412), label = 'MMD-Trained Quadratic')
     ax.scatter(np.concatenate((xspa,xspa), axis=None),np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None), c = np.array([[0.0,0.247058823529412,0.447058823529412]]), label = 'MMD-Trained Error')
     ax.plot(xspa,lspa, color = (0.980392156862745,0.976470588235294,0.964705882352941), label = 'LSQ-Trained Quadratic')
     ax.scatter(np.concatenate((xspa,xspa), axis=None),np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None), c = np.array([[0.980392156862745,0.976470588235294,0.964705882352941]]), label = 'LSQ-Trained Error')
-    ax.xlabel('t/L') 
-    ax.ylabel('x') 
+    ax.set_xlabel('t/L') 
+    ax.set_ylabel('x') 
     ax.legend()
 
     return fig
