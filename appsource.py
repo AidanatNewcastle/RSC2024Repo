@@ -173,4 +173,4 @@ cLselector = st.slider(label = 'Slide a test number to get a better look at the 
 st.write('Power Test No.'+ str(cLselector) + ', cL = ', str(cLs[cLselector]))
 st.write('Proposed Test Confidence in the Null Hypothesis: ' + str(MLS[cLselector][0]))
 st.write('MEP-CvM Test Confidence in the Null Hypothesis: ' + str(LLS[cLselector][0]))
-st.plotly_chart(makeplot(cLselector,MFS,LFS))
+st.plotly_chart(makeplottwo(cLselector,MFS,LFS))
