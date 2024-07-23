@@ -87,12 +87,12 @@ def makeplot(id,mfs,lfs):
 
     fig, ax = plt.subplots()
 
-    ax.scatter(tsam,xsam, s = [0.5]*200, color = (0.0,0.0,0.0), label = 'Generated Data')
+    ax.scatter(tsam,xsam, s = [1.0]*200, color = (0.0,0.0,0.0), label = 'Generated Data')
     ax.plot(xspa,yspa, color = (0.0,0.0,0.0), label = 'True Trend')
     ax.plot(xspa,mspa, color = (0.0,0.247058823529412,0.447058823529412), label = 'MMD-Trained Quadratic')
-    ax.scatter(np.concatenate((xspa,xspa), axis=None),np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None), s = [0.5]*200, color = (0.0,0.247058823529412,0.447058823529412), label = 'MMD-Trained Error')
+    ax.scatter(np.concatenate((xspa,xspa), axis=None),np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None), s = [1.0]*200, color = (0.0,0.247058823529412,0.447058823529412), label = 'MMD-Trained Error')
     ax.plot(xspa,lspa, color = (0.776470588235294,0.0470588235294118,0.188235294117647), label = 'LSQ-Trained Quadratic')
-    ax.scatter(np.concatenate((xspa,xspa), axis=None),np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None), s = [0.5]*200, color = (0.776470588235294,0.0470588235294118,0.188235294117647), label = 'LSQ-Trained Error')
+    ax.scatter(np.concatenate((xspa,xspa), axis=None),np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None), s = [1.0]*200, color = (0.776470588235294,0.0470588235294118,0.188235294117647), label = 'LSQ-Trained Error')
     ax.set_xlabel('t/L') 
     ax.set_ylabel('x') 
     ax.legend()
