@@ -4,6 +4,8 @@ import h5py as h5
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from pathlib import Path
+import base64
+import textwrap
 
 # Set the title and favicon that appear in the Browser's tab bar.
 st.set_page_config(
@@ -14,6 +16,12 @@ st.set_page_config(
 
 # -----------------------------------------------------------------------------
 # Declare some useful functions.
+
+def render_svg(svg): #Credit to https://gist.github.com/treuille for this function!
+    """Renders the given svg string."""
+    b64 = base64.b64encode(svg.encode('utf-8')).decode("utf-8")
+    html = r'<img src="data:image/svg+xml;base64,%s"/>' % b64
+    st.write(html, unsafe_allow_html=True)
 
 def quickget(ds,h5f):
     return np.array(h5f.get(ds))
