@@ -118,37 +118,37 @@ def makeplottwo(id,mfs,lfs):
     # Add traces
     fig.add_trace(go.Scatter(x=tsam, y=xsam,
                     mode='markers',
-                    name='Generated Data'
+                    name='Generated Data',
                     marker_color = 'rgba(0,0,0,1.0)'
     ))
     
     fig.add_trace(go.Scatter(x=xspa, y=yspa,
                     mode='lines',
-                    name='True Trend'
+                    name='True Trend',
                     marker_color = 'rgba(0,0,0,1.0)'
     ))
 
     fig.add_trace(go.Scatter(x=xspa, y=mspa,
                     mode='lines',
-                    name='MMD-Trained Quadratic'
+                    name='MMD-Trained Quadratic',
                     marker_color = 'rgba(0,63,114,1.0)'
     ))
 
     fig.add_trace(go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None),
                     mode='markers',
-                    name='MMD-Trained Error'
+                    name='MMD-Trained Error',
                     marker_color = 'rgba(0,63,114,1.0)'
     ))
 
     fig.add_trace(go.Scatter(x=xspa, y=mspa,
                     mode='lines',
-                    name='LSQ-Trained Quadratic'
+                    name='LSQ-Trained Quadratic',
                     marker_color = 'rgba(198,12,48,1.0)'
     ))
     
     fig.add_trace(go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None),
                     mode='markers',
-                    name='LSQ-Trained Error'
+                    name='LSQ-Trained Error',
                     marker_color = 'rgba(198,12,48,1.0)'
     ))
 
