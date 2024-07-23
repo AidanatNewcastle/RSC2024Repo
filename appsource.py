@@ -158,7 +158,7 @@ def prepareplots(mfspp,lfspp):
 
     plotsarray = [None]*400
     
-    for i in range(0,400)
+    for i in range(0,400):
         plotsarray[i] = makeplot(i,mfspp,lfspp)
 
     return plotsarray
