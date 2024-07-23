@@ -116,7 +116,7 @@ def makeplottwo(id,mfs,lfs):
     # Add traces
     t1 = (go.Scatter(x=tsam.flatten(), y=xsam.flatten(),
                     mode='markers',
-                    marker=dict(size=[10]*200),
+                    marker=dict(size=[2]*200),
                     name='Generated Data',
                     marker_color = 'rgba(0,0,0,1.0)'
     ))
@@ -135,7 +135,7 @@ def makeplottwo(id,mfs,lfs):
 
     t4 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None),
                     mode='markers',
-                    marker=dict(size=[10]*200),
+                    marker=dict(size=[2]*200),
                     name='MMD-Trained Error',
                     marker_color = 'rgba(0,63,115,1.0)'
     ))
@@ -148,7 +148,7 @@ def makeplottwo(id,mfs,lfs):
     
     t6 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None),
                     mode='markers',
-                    marker=dict(size=[10]*200),
+                    marker=dict(size=[2]*200),
                     name='LSQ-Trained Error',
                     marker_color = 'rgba(199,12,48,1.0)'
     ))
