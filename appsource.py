@@ -124,7 +124,7 @@ def makeplottwo(id,mfs,lfs):
     t2 = (go.Scatter(x=xspa, y=yspa,
                     mode='lines',
                     name='True Trend',
-                    marker_color = 'rgba(1,0,1,1.0)'
+                    marker_color = 'rgba(0,0,0,1.0)'
     ))
 
     t3 = (go.Scatter(x=xspa, y=mspa,
@@ -137,7 +137,7 @@ def makeplottwo(id,mfs,lfs):
                     mode='markers',
                     marker=dict(size=[4]*200),
                     name='MMD-Trained Error',
-                    marker_color = 'rgba(0,63,115,1.0)'
+                    marker_color = 'rgba(0,63,114,1.0)'
     ))
 
     t5 = (go.Scatter(x=xspa, y=lspa,
@@ -150,10 +150,14 @@ def makeplottwo(id,mfs,lfs):
                     mode='markers',
                     marker=dict(size=[4]*200),
                     name='LSQ-Trained Error',
-                    marker_color = 'rgba(199,12,48,1.0)'
+                    marker_color = 'rgba(198,12,48,1.0)'
     ))
 
-    return go.Figure(data = [t1,t2,t3,t4,t5,t6])
+    fig = go.Figure(data = [t1,t2,t3,t4,t5,t6])
+
+    fig.update_layout(xaxis_title="t / L", yaxis_title="x")
+
+    return fig
 # -----------------------------------------------------------------------------
 # Draw the actual page
 
