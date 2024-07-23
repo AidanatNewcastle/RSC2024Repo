@@ -153,15 +153,6 @@ def makeplottwo(id,mfs,lfs):
     ))
 
     return fig
-
-def prepareplots(mfspp,lfspp):
-
-    plotsarray = [None]*400
-    
-    for i in range(0,400):
-        plotsarray[i] = makeplot(i,mfspp,lfspp)
-
-    return plotsarray
 # -----------------------------------------------------------------------------
 # Draw the actual page
 
@@ -185,5 +176,4 @@ cLselector = st.slider(label = 'Slide a test number to get a better look at the 
 st.write('Power Test No.'+ str(cLselector) + ', cL = ', str(cLs[cLselector]))
 st.write('Proposed Test Confidence in the Null Hypothesis: ' + str(MLS[cLselector][0]))
 st.write('MEP-CvM Test Confidence in the Null Hypothesis: ' + str(LLS[cLselector][0]))
-#st.pyplot(makeplot(cLselector,MFS,LFS))
-st.pyplot(plots[cLselector])
+st.pyplot(makeplot(cLselector,MFS,LFS))
