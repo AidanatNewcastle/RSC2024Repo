@@ -4,3 +4,5 @@ h5py
 jax
 matplotlib
 plotly
+base64
+textwrap
