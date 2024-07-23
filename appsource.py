@@ -196,7 +196,7 @@ with lcol:
 with rcol:
     st.plotly_chart(makeplottwo(cLselector,MFS,LFS), use_container_width=True)
 
-    f = open("test.svg","r")
+    f = open("GoingPowerProfile1.svg","r")
     lines = f.readlines()
     line_string=''.join(lines)
 
