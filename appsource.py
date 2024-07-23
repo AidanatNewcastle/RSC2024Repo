@@ -114,7 +114,7 @@ def makeplottwo(id,mfs,lfs):
     tsam = tsam/l
 
     # Add traces
-    t1 = (go.Scatter(x=tsam, y=xsam,
+    t1 = (go.Scatter(x=tsam.flatten(), y=xsam.flatten(),
                     mode='markers',
                     name='Generated Data',
                     marker_color = 'rgba(0,0,0,1.0)'
