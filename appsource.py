@@ -163,7 +163,7 @@ MLS, LLS, MFS, LFS = preparetestlevelsandfits()
 cLs = preparecLspace()
 # -----------------------------------------------------------------------------
 # Draw the actual page
-
+st.set_page_config(layout="wide")
 lcol, rcol = st.columns(2)
 
 # Set the title that appears at the top of the page.
@@ -186,4 +186,4 @@ with lcol:
     st.metric('MEP-CvM Test Confidence in the Null Hypothesis.' ,(LLS[cLselector][0]))
 
 with rcol:
-    st.plotly_chart(makeplottwo(cLselector,MFS,LFS))
+    st.plotly_chart(makeplottwo(cLselector,MFS,LFS), use_container_width=True)
