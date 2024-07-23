@@ -99,6 +99,69 @@ def makeplot(id,mfs,lfs):
 
     return fig
 
+def makeplottwo(id,mfs,lfs):
+
+    ids = str(id)
+    tsam,xsam,yspa,l = prepareplotdata(ids)
+    xspa = np.linspace(-l,l,100).flatten()
+
+    mp = mfs[id]
+    mspa = mp[0]*(xspa**2) + mp[1]*xspa + mp[2]
+    lp = lfs[id]
+    lspa = lp[0]*(xspa**2) + lp[1]*xspa + lp[2]
+
+    xspa = np.linspace(-1,1,100)
+    tsam = tsam/l
+
+    fig = go.Figure()
+
+    # Add traces
+    fig.add_trace(go.Scatter(x=tsam, y=xsam,
+                    mode='markers',
+                    name='Generated Data'
+                    marker_color = 'rgba(0,0,0,1.0)'
+    ))
+    
+    fig.add_trace(go.Scatter(x=xspa, y=yspa,
+                    mode='lines',
+                    name='True Trend'
+                    marker_color = 'rgba(0,0,0,1.0)'
+    ))
+
+    fig.add_trace(go.Scatter(x=xspa, y=mspa,
+                    mode='lines',
+                    name='MMD-Trained Quadratic'
+                    marker_color = 'rgba(0,63,114,1.0)'
+    ))
+
+    fig.add_trace(go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None),
+                    mode='markers',
+                    name='MMD-Trained Error'
+                    marker_color = 'rgba(0,63,114,1.0)'
+    ))
+
+    fig.add_trace(go.Scatter(x=xspa, y=mspa,
+                    mode='lines',
+                    name='LSQ-Trained Quadratic'
+                    marker_color = 'rgba(198,12,48,1.0)'
+    ))
+    
+    fig.add_trace(go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None),
+                    mode='markers',
+                    name='LSQ-Trained Error'
+                    marker_color = 'rgba(198,12,48,1.0)'
+    ))
+
+    return fig
+
+def prepareplots(mfspp,lfspp):
+
+    plotsarray = [None]*400
+    
+    for i in range(0,400)
+        plotsarray[i] = makeplot(i,mfspp,lfspp)
+
+    return plotsarray
 # -----------------------------------------------------------------------------
 # Draw the actual page
 
