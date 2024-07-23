@@ -2,6 +2,7 @@ import streamlit as st
 import jax.numpy as np
 import h5py as h5
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 from pathlib import Path
 
 # Set the title and favicon that appear in the Browser's tab bar.
