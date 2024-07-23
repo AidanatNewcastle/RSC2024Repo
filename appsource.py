@@ -187,7 +187,7 @@ with lcol:
     # Add some spacing
     ''
     ''
-    cLselector = st.slider(label = 'Slide a test number to get a better look at the test! Drawing the slider up increases the cL tested.',min_value=0,max_value=399,value = 128,step=1)
+    cLselector = st.slider(label = 'Slide a test number to get a better look at the test! Drawing the slider up increases the cL tested.',min_value=0,max_value=399,value = 101,step=1)
     st.metric('Power Test No.',(cLselector))
     st.metric('cL', (cLs[cLselector]))
     st.metric('Proposed Test Confidence in the Null Hypothesis.',(MLS[cLselector][0]))
