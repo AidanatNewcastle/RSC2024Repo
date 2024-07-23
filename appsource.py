@@ -180,8 +180,10 @@ Only keeping the app open if it's in use would be deeply appreciated, as the ove
 
 MLS, LLS, MFS, LFS = preparetestlevelsandfits()
 cLs = preparecLspace()
+plots = prepareplots(MFS,LFS)
 cLselector = st.slider(label = 'Slide a test number to get a better look at the test! Drawing the slider up increases the cL tested.',min_value=0,max_value=399,value = 20,step=1)
 st.write('Power Test No.'+ str(cLselector) + ', cL = ', str(cLs[cLselector]))
 st.write('Proposed Test Confidence in the Null Hypothesis: ' + str(MLS[cLselector][0]))
 st.write('MEP-CvM Test Confidence in the Null Hypothesis: ' + str(LLS[cLselector][0]))
-st.pyplot(makeplot(cLselector,MFS,LFS))
+#st.pyplot(makeplot(cLselector,MFS,LFS))
+st.pyplot(plots[cLselector])
