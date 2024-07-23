@@ -138,7 +138,7 @@ def makeplottwo(id,mfs,lfs):
                     marker_color = 'rgba(0,63,115,1.0)'
     ))
 
-    t5 = (go.Scatter(x=xspa, y=mspa,
+    t5 = (go.Scatter(x=xspa, y=lspa,
                     mode='lines',
                     name='LSQ-Trained Quadratic',
                     marker_color = 'rgba(198,12,48,1.0)'
