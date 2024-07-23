@@ -3,3 +3,4 @@ pandas
 h5py
 jax
 matplotlib
+plotly
