@@ -195,3 +195,9 @@ with lcol:
 
 with rcol:
     st.plotly_chart(makeplottwo(cLselector,MFS,LFS), use_container_width=True)
+
+    f = open("test.svg","r")
+    lines = f.readlines()
+    line_string=''.join(lines)
+
+    render_svg(line_string)
