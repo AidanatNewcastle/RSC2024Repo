@@ -125,7 +125,7 @@ def makeplottwo(id,mfs,lfs):
     fig.add_trace(go.Scatter(x=xspa, y=yspa,
                     mode='lines',
                     name='True Trend',
-                    marker_color = 'rgba(0,0,0,1.0)'
+                    marker_color = 'rgba(1,0,1,1.0)'
     ))
 
     fig.add_trace(go.Scatter(x=xspa, y=mspa,
@@ -137,7 +137,7 @@ def makeplottwo(id,mfs,lfs):
     fig.add_trace(go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None),
                     mode='markers',
                     name='MMD-Trained Error',
-                    marker_color = 'rgba(0,63,114,1.0)'
+                    marker_color = 'rgba(0,63,115,1.0)'
     ))
 
     fig.add_trace(go.Scatter(x=xspa, y=mspa,
@@ -149,7 +149,7 @@ def makeplottwo(id,mfs,lfs):
     fig.add_trace(go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None),
                     mode='markers',
                     name='LSQ-Trained Error',
-                    marker_color = 'rgba(198,12,48,1.0)'
+                    marker_color = 'rgba(199,12,48,1.0)'
     ))
 
     return fig
