@@ -9,7 +9,7 @@ from pathlib import Path
 st.set_page_config(
     page_title='Robust Kernelised Composite Goodness-of-Fit Testing for Conditional Relationships Supplemental Web App',
     page_icon=':iphone:', 
-    layout = 'wide'
+    layout = "wide"
 )
 
 # -----------------------------------------------------------------------------
