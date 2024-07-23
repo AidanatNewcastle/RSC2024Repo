@@ -8,7 +8,8 @@ from pathlib import Path
 # Set the title and favicon that appear in the Browser's tab bar.
 st.set_page_config(
     page_title='Robust Kernelised Composite Goodness-of-Fit Testing for Conditional Relationships Supplemental Web App',
-    page_icon=':iphone:', # This is an emoji shortcode. Could be a URL too.
+    page_icon=':iphone:', 
+    layout = 'wide'
 )
 
 # -----------------------------------------------------------------------------
