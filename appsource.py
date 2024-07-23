@@ -113,46 +113,44 @@ def makeplottwo(id,mfs,lfs):
     xspa = np.linspace(-1,1,100)
     tsam = tsam/l
 
-    fig = go.Figure()
-
     # Add traces
-    fig.add_trace(go.Scatter(x=tsam, y=xsam,
+    t1 = (go.Scatter(x=tsam, y=xsam,
                     mode='markers',
                     name='Generated Data',
                     marker_color = 'rgba(0,0,0,1.0)'
     ))
     
-    fig.add_trace(go.Scatter(x=xspa, y=yspa,
+    t2 = (go.Scatter(x=xspa, y=yspa,
                     mode='lines',
                     name='True Trend',
                     marker_color = 'rgba(1,0,1,1.0)'
     ))
 
-    fig.add_trace(go.Scatter(x=xspa, y=mspa,
+    t3 = (go.Scatter(x=xspa, y=mspa,
                     mode='lines',
                     name='MMD-Trained Quadratic',
                     marker_color = 'rgba(0,63,114,1.0)'
     ))
 
-    fig.add_trace(go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None),
+    t4 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None),
                     mode='markers',
                     name='MMD-Trained Error',
                     marker_color = 'rgba(0,63,115,1.0)'
     ))
 
-    fig.add_trace(go.Scatter(x=xspa, y=mspa,
+    t5 = (go.Scatter(x=xspa, y=mspa,
                     mode='lines',
                     name='LSQ-Trained Quadratic',
                     marker_color = 'rgba(198,12,48,1.0)'
     ))
     
-    fig.add_trace(go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None),
+    t6 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None),
                     mode='markers',
                     name='LSQ-Trained Error',
                     marker_color = 'rgba(199,12,48,1.0)'
     ))
 
-    return fig
+    return go.Figure(data = [t1,t2,t3,t4,t5,t6])
 # -----------------------------------------------------------------------------
 # Draw the actual page
 
