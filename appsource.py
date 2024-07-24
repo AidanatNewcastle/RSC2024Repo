@@ -183,7 +183,10 @@ def makeplottwo(id,mfs,lfs,tlist):
 
     fig = go.Figure(data = plotlist)
 
-    fig.update_layout(xaxis_title="t / L", yaxis_title="x")
+    if plotlist == []:
+        fig.update_layout(yaxis_range=[-1,1],xaxis_range=[-1,1])
+    else:
+        fig.update_layout(xaxis_title="t / L", yaxis_title="x")
 
     return fig
 
