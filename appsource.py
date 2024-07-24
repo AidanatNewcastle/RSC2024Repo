@@ -127,13 +127,13 @@ def makeplottwo(id,mfs,lfs):
                     mode='markers',
                     marker=dict(size=[3.5]*200, line=dict(width=0)),
                     name='Generated Data',
-                    marker_color = 'rgba(0,0,0,1.0)'
+                    marker_color = 'rgba(250,249,246,1.0)'
     ))
     
     t2 = (go.Scatter(x=xspa, y=yspa,
                     mode='lines',
                     name='True Trend',
-                    marker_color = 'rgba(0,0,0,1.0)'
+                    marker_color = 'rgba(250,249,246,1.0)'
     ))
 
     t3 = (go.Scatter(x=xspa, y=mspa,
