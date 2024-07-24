@@ -192,7 +192,7 @@ with lcol:
     st.metric('cL', (cLs[cLselector]))
     st.metric('Proposed Test Confidence in the Null Hypothesis.',(MLS[cLselector][0]))
     st.metric('MEP-CvM Test Confidence in the Null Hypothesis.' ,(LLS[cLselector][0]))
-    st.metric('MMD-Trained Standard Deviation from Trained Trend.',np.abs((MFS[cLselector][-1]))
+    st.metric('MMD-Trained Standard Deviation from Trained Trend.',np.abs((MFS[cLselector][-1])))
     st.metric('LSQ-Trained Standard Deviation from Trained Trend.',(LFS[cLselector][-1]))
 
 with rcol:
