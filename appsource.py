@@ -192,6 +192,8 @@ with lcol:
     st.metric('cL', (cLs[cLselector]))
     st.metric('Proposed Test Confidence in the Null Hypothesis.',(MLS[cLselector][0]))
     st.metric('MEP-CvM Test Confidence in the Null Hypothesis.' ,(LLS[cLselector][0]))
+    st.metric('MMD-Trained θ.',(MFS[cLselector]))
+    st.metric('LSQ-Trained θ.',(LFS[cLselector]))
 
 with rcol:
     st.plotly_chart(makeplottwo(cLselector,MFS,LFS), use_container_width=True)
