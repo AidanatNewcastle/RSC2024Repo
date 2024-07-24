@@ -128,7 +128,7 @@ def makeplottwo(id,mfs,lfs,tlist):
         
         t1 = (go.Scatter(x=tsam.flatten(), y=xsam.flatten(),
                     mode='markers',
-                    marker=dict(size=[3]*200,symbol = 'x', line=dict(width=0)),
+                    marker=dict(size=[5]*200,symbol = 'x', line=dict(width=0)),
                     name='Generated Data',
                     marker_color = 'rgba(125,124,123,1.0)'
         ))
