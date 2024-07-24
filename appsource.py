@@ -198,7 +198,7 @@ with lcol:
     '''
     # :globe_with_meridians: Robust Kernelised Composite Goodness-of-Fit Testing for Conditional Relationships Supplemental Web App
 
-    Hello! This a Streamlit-powered web app to support a poster made for RSC Exeter 2024. This contextualises a figure profiling the power of a statistical test presented on the poster, namely by letting the reader see the data plotted, point-by-point, next to the underlying test each plotted point represents. The principle image of the figure is included here as well. 
+    Hello! This a Streamlit-powered web app to support a poster made for RSC Exeter 2024. This contextualises a figure profiling the power of a statistical test presented on the poster, namely by letting the reader see the data plotted, point-by-point, next to the underlying test each plotted point represents with the ability to select and deselect elements of a demonstrative Plotly chart. The principle image of the figure is included here as well. 
 
     Only keeping the app open if it's in use would be deeply appreciated, as the overall resources available to this app are limited.
     '''
@@ -214,10 +214,10 @@ with lcol:
     st.write('Select the data shown below.')
     p1 = st.checkbox('Generated Data', value=True)
     p2 = st.checkbox('True Trend', value=True)
-    p3 = st.checkbox('MMD-Trained Quadratic', value=True)
-    p4 = st.checkbox('MMD-Trained Error', value=True)
-    p5 = st.checkbox('LSQ-Trained Quadratic', value=True)
-    p6 = st.checkbox('LSQ-Trained Error', value=True)
+    p3 = st.checkbox('MMD-Trained Quadratic', value=False)
+    p4 = st.checkbox('MMD-Trained Error', value=False)
+    p5 = st.checkbox('LSQ-Trained Quadratic', value=False)
+    p6 = st.checkbox('LSQ-Trained Error', value=False)
     plist = [p1,p2,p3,p4,p5,p6]
     #st.metric('MMD-Trained Standard Deviation from Trained Trend.',np.abs((MFS[cLselector][-1])))
     #st.metric('LSQ-Trained Standard Deviation from Trained Trend.',(LFS[cLselector][-1]))
