@@ -227,7 +227,7 @@ with lcol:
     st.write('Select the data shown below.')
     p1 = st.checkbox('Generated Data', value=True)
     p2 = st.checkbox('True Trend', value=True)
-    p3 = st.checkbox('True Error', value=True)
+    p3 = st.checkbox('True Error', value=False)
     p4 = st.checkbox('MMD-Trained Quadratic', value=False)
     p5 = st.checkbox('MMD-Trained Error', value=False)
     p6 = st.checkbox('LSQ-Trained Quadratic', value=False)
