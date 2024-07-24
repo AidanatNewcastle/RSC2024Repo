@@ -128,58 +128,68 @@ def makeplottwo(id,mfs,lfs,tlist):
         
         t1 = (go.Scatter(x=tsam.flatten(), y=xsam.flatten(),
                     mode='markers',
-                    marker=dict(size=[3.5]*200, line=dict(width=0)),
+                    marker=dict(size=[3]*200,symbol = 'x-thin', line=dict(width=0)),
                     name='Generated Data',
                     marker_color = 'rgba(125,124,123,1.0)'
         ))
         plotlist.append(t1)
-        
+
     if tlist[1]:
-        
+
         t2 = (go.Scatter(x=xspa, y=yspa,
                     mode='lines',
                     name='True Trend',
                     marker_color = 'rgba(125,124,123,1.0)'
         ))
         plotlist.append(t2)
-
+        
     if tlist[2]:
         
-        t3 = (go.Scatter(x=xspa, y=mspa,
-                    mode='lines',
-                    name='MMD-Trained Quadratic',
-                    marker_color = 'rgba(0,63,114,1.0)'
+        t3 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((yspa+1),(yspa-1)), axis=None),
+                    mode='markers',
+                    marker=dict(size=[3]*200, line=dict(width=0)),
+                    name='True Error',
+                    marker_color = 'rgba(125,124,123,1.0)'
         ))
         plotlist.append(t3)
 
     if tlist[3]:
-
-        t4 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None),
-                    mode='markers',
-                    marker=dict(size=[3.5]*200, line=dict(width=0)),
-                    name='MMD-Trained Error',
+        
+        t4 = (go.Scatter(x=xspa, y=mspa,
+                    mode='lines',
+                    name='MMD-Trained Quadratic',
                     marker_color = 'rgba(0,63,114,1.0)'
         ))
         plotlist.append(t4)
 
     if tlist[4]:
 
-        t5 = (go.Scatter(x=xspa, y=lspa,
-                    mode='lines',
-                    name='LSQ-Trained Quadratic',
-                    marker_color = 'rgba(198,12,48,1.0)'
+        t5 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None),
+                    mode='markers',
+                    marker=dict(size=[3]*200, line=dict(width=0)),
+                    name='MMD-Trained Error',
+                    marker_color = 'rgba(0,63,114,1.0)'
         ))
         plotlist.append(t5)
 
     if tlist[5]:
-        
-        t6 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None),
-                    mode='markers',
-                    marker=dict(size=[3.5]*200, line=dict(width=0)),
-                    name='LSQ-Trained Error',
+
+        t6 = (go.Scatter(x=xspa, y=lspa,
+                    mode='lines',
+                    name='LSQ-Trained Quadratic',
                     marker_color = 'rgba(198,12,48,1.0)'
         ))
         plotlist.append(t6)
+
+    if tlist[6]:
+        
+        t7 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None),
+                    mode='markers',
+                    marker=dict(size=[3]*200, line=dict(width=0)),
+                    name='LSQ-Trained Error',
+                    marker_color = 'rgba(198,12,48,1.0)'
+        ))
+        plotlist.append(t7)
 
     fig = go.Figure(data = plotlist)
 
@@ -217,16 +227,16 @@ with lcol:
     st.write('Select the data shown below.')
     p1 = st.checkbox('Generated Data', value=True)
     p2 = st.checkbox('True Trend', value=True)
-    p3 = st.checkbox('MMD-Trained Quadratic', value=False)
-    p4 = st.checkbox('MMD-Trained Error', value=False)
-    p5 = st.checkbox('LSQ-Trained Quadratic', value=False)
-    p6 = st.checkbox('LSQ-Trained Error', value=False)
-    plist = [p1,p2,p3,p4,p5,p6]
+    p3 = st.checkbox('True Error', value=True)
+    p4 = st.checkbox('MMD-Trained Quadratic', value=False)
+    p5 = st.checkbox('MMD-Trained Error', value=False)
+    p6 = st.checkbox('LSQ-Trained Quadratic', value=False)
+    p7 = st.checkbox('LSQ-Trained Error', value=False)
     #st.metric('MMD-Trained Standard Deviation from Trained Trend.',np.abs((MFS[cLselector][-1])))
     #st.metric('LSQ-Trained Standard Deviation from Trained Trend.',(LFS[cLselector][-1]))
 
 with rcol:
-    st.plotly_chart(makeplottwo(cLselector,MFS,LFS,plist), use_container_width=True)
+    st.plotly_chart(makeplottwo(cLselector,MFS,LFS,[p1,p2,p3,p4,p5,p6,p7]), use_container_width=True)
 
     f = open("GoingPowerProfile1.svg","r")
     lines = f.readlines()
