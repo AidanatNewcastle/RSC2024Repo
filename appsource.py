@@ -181,7 +181,7 @@ def makeplottwo(id,mfs,lfs,tlist):
         ))
         plotlist.append(t6)
 
-    fig = go.Figure(data = plot)
+    fig = go.Figure(data = plotlist)
 
     fig.update_layout(xaxis_title="t / L", yaxis_title="x")
 
