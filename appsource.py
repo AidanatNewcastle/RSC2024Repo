@@ -354,11 +354,11 @@ with lcol:
     jobselector = st.slider(label = 'Slide a test number to get a better look at the test!',min_value=0,max_value=399,value = 101,step=1,help = jobselectorhelpstr)
     st.metric('Power Test No.',(jobselector))
     if FSFNswitch:
-        st.metric('cL', (cLs[jobselector]))
+        st.metric('ψ', (psis[jobselector]))
         st.metric('Proposed Test Confidence in the Null Hypothesis.',(MLS2[jobselector][0]))
         st.metric('MEP-CvM Test Confidence in the Null Hypothesis.' ,(LLS2[jobselector][0]))
     else:
-        st.metric('ψ', (psis[jobselector]))
+        st.metric('cL', (cLs[jobselector]))
         st.metric('Proposed Test Confidence in the Null Hypothesis.',(MLS[jobselector][0]))
         st.metric('MEP-CvM Test Confidence in the Null Hypothesis.' ,(LLS[jobselector][0]))
     st.write('Select the data shown below.')
