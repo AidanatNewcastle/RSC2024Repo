@@ -340,11 +340,22 @@ with lcol:
     # Add some spacing
     ''
     ''
-    cLselector = st.slider(label = 'Slide a test number to get a better look at the test! Drawing the slider up increases the cL tested.',min_value=0,max_value=399,value = 101,step=1)
-    st.metric('Power Test No.',(cLselector))
-    st.metric('cL', (cLs[cLselector]))
-    st.metric('Proposed Test Confidence in the Null Hypothesis.',(MLS[cLselector][0]))
-    st.metric('MEP-CvM Test Confidence in the Null Hypothesis.' ,(LLS[cLselector][0]))
+    FSFNswitch = st.toggle(label = 'False Positive - False Negative Toggle.', value = False, help = 'Use this switch to toggle between looking at the data underlying the False Positive and False Negative Profiles!')
+    if FSFNswitch = False:
+        
+        reportstr = 'False Positive Profile'
+        jobselectorhelpstr = 'Drawing the slider up increases the cL tested.'
+        
+    else:
+
+        reportstr = 'False Negative Profile'
+        jobselectorhelpstr = 'Drawing the slider up increases the ψ tested.'
+        
+    jobselector = st.slider(label = 'Slide a test number to get a better look at the test!',min_value=0,max_value=399,value = 101,step=1,help = jobselectorhelpstr)
+    st.metric('Power Test No.',(jobselector))
+    st.metric('cL', (cLs[jobselector]))
+    st.metric('Proposed Test Confidence in the Null Hypothesis.',(MLS[jobselector][0]))
+    st.metric('MEP-CvM Test Confidence in the Null Hypothesis.' ,(LLS[jobselector][0]))
     st.write('Select the data shown below.')
     p1 = st.checkbox('Generated Data', value=True)
     p2 = st.checkbox('True Trend', value=True)
@@ -353,11 +364,10 @@ with lcol:
     p5 = st.checkbox('MMD-Trained Error', value=True)
     p6 = st.checkbox('LSQ-Trained Quadratic', value=False)
     p7 = st.checkbox('LSQ-Trained Error', value=False)
-    #st.metric('MMD-Trained Standard Deviation from Trained Trend.',np.abs((MFS[cLselector][-1])))
-    #st.metric('LSQ-Trained Standard Deviation from Trained Trend.',(LFS[cLselector][-1]))
 
 with rcol:
-    st.plotly_chart(makeplot(cLselector,MFS,LFS,[p1,p2,p3,p4,p5,p6,p7]), use_container_width=True)
+    
+    st.plotly_chart(makeplot(jobselector,MFS,LFS,[p1,p2,p3,p4,p5,p6,p7]), use_container_width=True)
 
     f = open("GoingPowerProfile1.svg","r")
     lines = f.readlines()
