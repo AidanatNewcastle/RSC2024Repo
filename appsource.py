@@ -57,7 +57,7 @@ def preparepsispace():
     stribuff = str(i)
     Abuffer = 'FalseNegativeTestData' + stribuff + '.h5'
     with h5.File(Abuffer,'r') as A:
-        psi = quickget('cL',A)
+        psi = quickget('psi',A)
         A.close()
     psispace[i] = psi
 
