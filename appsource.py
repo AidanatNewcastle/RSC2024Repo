@@ -334,7 +334,7 @@ with lcol:
 
     Hello! This a Streamlit-powered web app to support a poster made for RSC Exeter 2024. This contextualises a figure profiling the power of a statistical test presented on the poster, namely by letting the reader see the data plotted, point-by-point, next to the underlying test each plotted point represents with the ability to select and deselect elements of a demonstrative Plotly chart. The principle image of the figure is included here as well. 
 
-    Only keeping the app open if it's in use would be deeply appreciated, as the overall resources available to this app are limited.
+    Only keeping the app open if it's in use would be deeply appreciated, as the overall resources available to this app are limited. Many thanks to Devang Liya for introducing me to Streamlit! Please find his GitHub here : https://github.com/DevangLiya.
     '''
 
     # Add some spacing
