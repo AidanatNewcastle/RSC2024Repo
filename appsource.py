@@ -350,7 +350,7 @@ with lcol:
 
         reportstr = 'False Positive Profile'
         jobselectorhelpstr = 'Drawing the slider up increases the cL tested.'
-        
+    st.write(reportstr)   
     jobselector = st.slider(label = 'Slide a test number to get a better look at the test!',min_value=0,max_value=399,value = 101,step=1,help = jobselectorhelpstr)
     st.metric('Power Test No.',(jobselector))
     if FSFNswitch:
