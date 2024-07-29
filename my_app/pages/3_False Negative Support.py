@@ -24,10 +24,10 @@ def quickget2(ds,h5f):
 def preparepsispace():
 
     i = 0;
-    cLspace = [None]*400
-
+    psispace = [None]*400
+    
     stribuff = str(i)
-    Abuffer = 'PowerTestData' + stribuff + '.h5'
+    Abuffer = 'FalseNegativeTestData' + stribuff + '.h5'
     with h5.File(Abuffer,'r') as A:
         psi = quickget2('psi',A)
         A.close()
@@ -59,7 +59,7 @@ def preparetestlevelsandfits2():
 @st.cache_data
 def prepareplotdata2(rs):
 
-    Cbuffer = 'PowerTestData' + rs + '.h5'
+    Cbuffer = 'FalseNegativeTestData' + rs + '.h5'
 
     with h5.File(Cbuffer,'r') as C:
         a = quickget2('a',C)
@@ -103,7 +103,7 @@ def makeplot2(id,mfs,lfs,tlist):
 
     if tlist[1]:
 
-        t2 = (go.Scatter(x=(xspa), y=yspa,
+        t2 = (go.Scatter(x=xspa, y=yspa,
                     mode='lines',
                     name='True Trend',
                     marker_color = 'rgba(125,124,123,1.0)'
