@@ -45,7 +45,6 @@ with lcol:
     ''
 
 with rcol:
-    st.plotly_chart(makeplottwo(cLselector,MFS,LFS,[p1,p2,p3,p4,p5,p6,p7]), use_container_width=True)
 
     f = open("GoingPowerProfile1.svg","r")
     lines = f.readlines()
