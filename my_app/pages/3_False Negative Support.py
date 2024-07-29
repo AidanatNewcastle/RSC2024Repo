@@ -17,6 +17,9 @@ st.set_page_config(
 # -----------------------------------------------------------------------------
 # Declare some useful functions.
 
+st.markdown("# False Negative Support :two:")
+st.sidebar.markdown("# False Negative Support :two:")
+
 def quickget2(ds,h5f):
     return np.array(h5f.get(ds))
 
