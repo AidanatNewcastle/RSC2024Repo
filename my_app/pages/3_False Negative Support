@@ -9,8 +9,8 @@ import textwrap
 
 # Set the title and favicon that appear in the Browser's tab bar.
 st.set_page_config(
-    page_title='Robust Kernelised Composite Goodness-of-Fit Testing for Conditional Relationships Supplemental Web App',
-    page_icon=':globe_with_meridians:', 
+    page_title='False Negative Support',
+    page_icon=':two:', 
     layout = "wide"
 )
 
