@@ -17,17 +17,11 @@ st.set_page_config(
 # -----------------------------------------------------------------------------
 # Declare some useful functions.
 
-def render_svg(svg): #Credit to https://gist.github.com/treuille for this function!
-    """Renders the given svg string."""
-    b64 = base64.b64encode(svg.encode('utf-8')).decode("utf-8")
-    html = r'<img src="data:image/svg+xml;base64,%s"/>' % b64
-    st.write(html, unsafe_allow_html=True)
-
-def quickget(ds,h5f):
+def quickget2(ds,h5f):
     return np.array(h5f.get(ds))
 
 @st.cache_data
-def preparecLspace():
+def preparepsispace():
 
     i = 0;
     cLspace = [None]*400
@@ -35,93 +29,66 @@ def preparecLspace():
     stribuff = str(i)
     Abuffer = 'PowerTestData' + stribuff + '.h5'
     with h5.File(Abuffer,'r') as A:
-        cL = quickget('cL',A)
+        psi = quickget2('psi',A)
         A.close()
-    cLspace[i] = cL
+    psispace[i] = psi
 
     for i in range(1,400):
         stribuff = str(i)
-        Abuffer = 'PowerTestData' + stribuff + '.h5'
+        Abuffer = 'FalseNegativeTestData' + stribuff + '.h5'
         with h5.File(Abuffer,'r') as A:
-            cL = quickget('cL',A)
+            psi = quickget2('psi',A)
             A.close()
-        cLspace[i] = cL
+        psispace[i] = psi
 
-    return np.array(cLspace).flatten()
+    return np.array(psispace).flatten()
 
 @st.cache_data
-def preparetestlevelsandfits():
+def preparetestlevelsandfits2():
 
-    Bbuffer = 'PowerTestFits.h5'
+    Bbuffer = 'FNPowerTestFits.h5'
     with h5.File(Bbuffer,'r') as B:
-        mmdlevelspace = quickget('MMDLevel',B)
-        lsqlevelspace = quickget('LSQLevel',B)
-        mmdfitspace = quickget('MMDFit',B)
-        lsqfitspace = quickget('LSQFit',B)
+        mmdlevelspace = quickget2('MMDLevel',B)
+        lsqlevelspace = quickget2('LSQLevel',B)
+        mmdfitspace = quickget2('MMDFit',B)
+        lsqfitspace = quickget2('LSQFit',B)
         B.close()
 
     return mmdlevelspace, lsqlevelspace, mmdfitspace, lsqfitspace
 
 @st.cache_data
-def prepareplotdata(rs):
+def prepareplotdata2(rs):
 
     Cbuffer = 'PowerTestData' + rs + '.h5'
 
     with h5.File(Cbuffer,'r') as C:
-        a = quickget('a',C)
-        b = quickget('b',C)
-        L = quickget('L',C)
-        cL = quickget('cL',C)
-        tsample = quickget('TSample',C)
-        xsample = quickget('XSample',C) 
+        a = quickget2('a',C)
+        b = quickget2('b',C)
+        c = quickget2('c',C)
+        L = quickget2('L',C)
+        psi = quickget2('psi',C)
+        tsample = quickget2('TSample',C)
+        xsample = quickget2('XSample',C) 
         C.close()
     
-    yspace = a + b*np.exp(np.linspace(-cL,cL,100))
+    xspace = np.linspace(-L,L,100).flatten()
+    yspace = a*(xspace**2) + b*(xspace) + c
 
-    return tsample,xsample,yspace.flatten(),L
+    return tsample,xsample,xspace,yspace.flatten(),L
 
-def makeplot(id,mfs,lfs):
-
-    ids = str(id)
-    tsam,xsam,yspa,l = prepareplotdata(ids)
-    xspa = np.linspace(-l,l,100).flatten()
-
-    mp = mfs[id]
-    mspa = mp[0]*(xspa**2) + mp[1]*xspa + mp[2]
-    lp = lfs[id]
-    lspa = lp[0]*(xspa**2) + lp[1]*xspa + lp[2]
-
-    xspa = np.linspace(-1,1,100)
-    tsam = tsam/l
-
-    fig, ax = plt.subplots()
-
-    ax.scatter(tsam,xsam, s = [10.0]*200, color = (0.0,0.0,0.0), label = 'Generated Data')
-    ax.plot(xspa,yspa, color = (0.0,0.0,0.0), label = 'True Trend')
-    ax.plot(xspa,mspa, color = (0.0,0.247058823529412,0.447058823529412), label = 'MMD-Trained Quadratic')
-    ax.scatter(np.concatenate((xspa,xspa), axis=None),np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None), s = [10.0]*200, color = (0.0,0.247058823529412,0.447058823529412), label = 'MMD-Trained Error')
-    ax.plot(xspa,lspa, color = (0.776470588235294,0.0470588235294118,0.188235294117647), label = 'LSQ-Trained Quadratic')
-    ax.scatter(np.concatenate((xspa,xspa), axis=None),np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None), s = [10.0]*200, color = (0.776470588235294,0.0470588235294118,0.188235294117647), label = 'LSQ-Trained Error')
-    ax.set_xlabel('t/L') 
-    ax.set_ylabel('x') 
-    ax.legend()
-
-    return fig
-
-def makeplottwo(id,mfs,lfs,tlist):
+def makeplot2(id,mfs,lfs,tlist):
 
     plotlist = []
     ids = str(id)
-    tsam,xsam,yspa,l = prepareplotdata(ids)
-    xspa = np.linspace(-l,l,100).flatten()
+    tsam,xsam,xspa,yspa,l = prepareplotdata(ids)
 
     mp = mfs[id]
     mspa = mp[0]*(xspa**2) + mp[1]*xspa + mp[2]
     lp = lfs[id]
     lspa = lp[0]*(xspa**2) + lp[1]*xspa + lp[2]
 
-    xspa = np.linspace(-1,1,100)
     tsam = tsam/l
+    xspa = xspa/l
 
     # Add traces
     if tlist[0]:
@@ -136,7 +103,7 @@ def makeplottwo(id,mfs,lfs,tlist):
 
     if tlist[1]:
 
-        t2 = (go.Scatter(x=xspa, y=yspa,
+        t2 = (go.Scatter(x=(xspa), y=yspa,
                     mode='lines',
                     name='True Trend',
                     marker_color = 'rgba(125,124,123,1.0)'
@@ -200,8 +167,8 @@ def makeplottwo(id,mfs,lfs,tlist):
 
     return fig
 
-MLS, LLS, MFS, LFS = preparetestlevelsandfits()
-cLs = preparecLspace()
+MLS, LLS, MFS, LFS = preparetestlevelsandfits2()
+psis = preparepsispace()
 # -----------------------------------------------------------------------------
 # Draw the actual page
 lcol, rcol = st.columns(2)
@@ -217,7 +184,7 @@ with lcol:
     ''
     cLselector = st.slider(label = 'Slide a test number to get a better look at the test! Drawing the slider up increases the cL tested.',min_value=0,max_value=399,value = 101,step=1)
     st.metric('Power Test No.',(cLselector))
-    st.metric('cL', (cLs[cLselector]))
+    st.metric('ψ', (cLs[cLselector]))
     st.metric('Proposed Test Confidence in the Null Hypothesis.',(MLS[cLselector][0]))
     st.metric('MEP-CvM Test Confidence in the Null Hypothesis.' ,(LLS[cLselector][0]))
     st.write('Select the data shown below.')
@@ -232,10 +199,4 @@ with lcol:
     #st.metric('LSQ-Trained Standard Deviation from Trained Trend.',(LFS[cLselector][-1]))
 
 with rcol:
-    st.plotly_chart(makeplottwo(cLselector,MFS,LFS,[p1,p2,p3,p4,p5,p6,p7]), use_container_width=True)
-
-    f = open("GoingPowerProfile1.svg","r")
-    lines = f.readlines()
-    line_string=''.join(lines)
-
-    render_svg(line_string)
+    st.plotly_chart(makeplot2(cLselector,MFS,LFS,[p1,p2,p3,p4,p5,p6,p7]), use_container_width=True)
