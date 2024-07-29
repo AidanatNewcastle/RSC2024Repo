@@ -345,17 +345,24 @@ with lcol:
         
         reportstr = 'False Negative Profile'
         jobselectorhelpstr = 'Drawing the slider up increases the ψ tested.'
+        identifierstr = 'ψ'
         
     else:
 
         reportstr = 'False Positive Profile'
         jobselectorhelpstr = 'Drawing the slider up increases the cL tested.'
+        identifierstr = 'cL'
         
     jobselector = st.slider(label = 'Slide a test number to get a better look at the test!',min_value=0,max_value=399,value = 101,step=1,help = jobselectorhelpstr)
     st.metric('Power Test No.',(jobselector))
-    st.metric('cL', (cLs[jobselector]))
-    st.metric('Proposed Test Confidence in the Null Hypothesis.',(MLS[jobselector][0]))
-    st.metric('MEP-CvM Test Confidence in the Null Hypothesis.' ,(LLS[jobselector][0]))
+    if FSFNswitch:
+        st.metric('ψ', (cLs[jobselector]))
+        st.metric('Proposed Test Confidence in the Null Hypothesis.',(MLS2[jobselector][0]))
+        st.metric('MEP-CvM Test Confidence in the Null Hypothesis.' ,(LLS2[jobselector][0]))
+    else:
+        st.metric('cL', (psis[jobselector]))
+        st.metric('Proposed Test Confidence in the Null Hypothesis.',(MLS[jobselector][0]))
+        st.metric('MEP-CvM Test Confidence in the Null Hypothesis.' ,(LLS[jobselector][0]))
     st.write('Select the data shown below.')
     p1 = st.checkbox('Generated Data', value=True)
     p2 = st.checkbox('True Trend', value=True)
@@ -366,8 +373,11 @@ with lcol:
     p7 = st.checkbox('LSQ-Trained Error', value=False)
 
 with rcol:
-    
-    st.plotly_chart(makeplot(jobselector,MFS,LFS,[p1,p2,p3,p4,p5,p6,p7]), use_container_width=True)
+
+    if FSFNswitch:
+        st.plotly_chart(makeplottwo(jobselector,MFS2,LFS2,[p1,p2,p3,p4,p5,p6,p7]), use_container_width=True)
+    else:
+        st.plotly_chart(makeplot(jobselector,MFS,LFS,[p1,p2,p3,p4,p5,p6,p7]), use_container_width=True)
 
     f = open("GoingPowerProfile1.svg","r")
     lines = f.readlines()
