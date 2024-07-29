@@ -341,15 +341,15 @@ with lcol:
     ''
     ''
     FSFNswitch = st.toggle(label = 'False Positive - False Negative Toggle.', value = False, help = 'Use this switch to toggle between looking at the data underlying the False Positive and False Negative Profiles!')
-    if FSFNswitch = False:
+    if FSFNswitch:
         
-        reportstr = 'False Positive Profile'
-        jobselectorhelpstr = 'Drawing the slider up increases the cL tested.'
+        reportstr = 'False Negative Profile'
+        jobselectorhelpstr = 'Drawing the slider up increases the ψ tested.'
         
     else:
 
-        reportstr = 'False Negative Profile'
-        jobselectorhelpstr = 'Drawing the slider up increases the ψ tested.'
+        reportstr = 'False Positive Profile'
+        jobselectorhelpstr = 'Drawing the slider up increases the cL tested.'
         
     jobselector = st.slider(label = 'Slide a test number to get a better look at the test!',min_value=0,max_value=399,value = 101,step=1,help = jobselectorhelpstr)
     st.metric('Power Test No.',(jobselector))
