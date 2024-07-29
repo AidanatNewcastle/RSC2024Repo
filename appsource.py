@@ -49,10 +49,45 @@ def preparecLspace():
 
     return np.array(cLspace).flatten()
 
+def preparepsispace():
+    
+    i = 0;
+    psispace = [None]*400
+
+    stribuff = str(i)
+    Abuffer = 'FalseNegativeTestData' + stribuff + '.h5'
+    with h5.File(Abuffer,'r') as A:
+        psi = quickget('cL',A)
+        A.close()
+    psispace[i] = psi
+
+    for i in range(1,400):
+        stribuff = str(i)
+        Abuffer = 'FalseNegativeTestData' + stribuff + '.h5'
+        with h5.File(Abuffer,'r') as A:
+            psi = quickget('psi',A)
+            A.close()
+        psispace[i] = psi
+
+    return np.array(psispace).flatten()
+
 @st.cache_data
 def preparetestlevelsandfits():
 
     Bbuffer = 'PowerTestFits.h5'
+    with h5.File(Bbuffer,'r') as B:
+        mmdlevelspace = quickget('MMDLevel',B)
+        lsqlevelspace = quickget('LSQLevel',B)
+        mmdfitspace = quickget('MMDFit',B)
+        lsqfitspace = quickget('LSQFit',B)
+        B.close()
+
+    return mmdlevelspace, lsqlevelspace, mmdfitspace, lsqfitspace
+
+@st.cache_data
+def preparetestlevelsandfitstwo():
+
+    Bbuffer = 'FNPowerTestFits.h5'
     with h5.File(Bbuffer,'r') as B:
         mmdlevelspace = quickget('MMDLevel',B)
         lsqlevelspace = quickget('LSQLevel',B)
@@ -79,6 +114,27 @@ def prepareplotdata(rs):
     yspace = a + b*np.exp(np.linspace(-cL,cL,100))
 
     return tsample,xsample,yspace.flatten(),L
+
+@st.cache_data
+def prepareplotdatatwo(rs):
+
+    Cbuffer = 'FalseNegativeTestData' + rs + '.h5'
+
+    with h5.File(Cbuffer,'r') as C:
+        a = quickget('a',C)
+        b = quickget('b',C)
+        c = quickget('c',C)
+        L = quickget('L',C)
+        psi = quickget('psi',C)
+        tsample = quickget('TSample',C)
+        xsample = quickget('XSample',C) 
+        C.close()
+
+    xspace = np.linspace(-L,L,100).flatten()
+    yspace = a*(xspace**2) + b*(xspace) + c
+
+    return tsample,xsample,xspace,yspace.flatten(),L
+
 
 def makeplot(id,mfs,lfs,tlist):
 
@@ -172,8 +228,101 @@ def makeplot(id,mfs,lfs,tlist):
 
     return fig
 
+def makeplottwo(id,mfs,lfs,tlist):
+
+    plotlist = []
+    ids = str(id)
+    tsam,xsam,xspa,yspa,l = prepareplotdatatwo(ids)
+
+    mp = mfs[id]
+    mspa = mp[0]*(xspa**2) + mp[1]*xspa + mp[2]
+    lp = lfs[id]
+    lspa = lp[0]*(xspa**2) + lp[1]*xspa + lp[2]
+
+    xspa = np.linspace(-1,1,100)
+    tsam = tsam/l
+
+    # Add traces
+    if tlist[0]:
+        
+        t1 = (go.Scatter(x=tsam.flatten(), y=xsam.flatten(),
+                    mode='markers',
+                    marker=dict(size=[7]*200,symbol = 'x', line=dict(width=0)),
+                    name='Generated Data',
+                    marker_color = 'rgba(125,124,123,1.0)'
+        ))
+        plotlist.append(t1)
+
+    if tlist[1]:
+
+        t2 = (go.Scatter(x=xspa, y=yspa,
+                    mode='lines',
+                    name='True Trend',
+                    marker_color = 'rgba(125,124,123,1.0)'
+        ))
+        plotlist.append(t2)
+        
+    if tlist[2]:
+        
+        t3 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((yspa+1),(yspa-1)), axis=None),
+                    mode='markers',
+                    marker=dict(size=[3]*200, line=dict(width=0)),
+                    name='True Error',
+                    marker_color = 'rgba(125,124,123,1.0)'
+        ))
+        plotlist.append(t3)
+
+    if tlist[3]:
+        
+        t4 = (go.Scatter(x=xspa, y=mspa,
+                    mode='lines',
+                    name='MMD-Trained Quadratic',
+                    marker_color = 'rgba(0,63,114,1.0)'
+        ))
+        plotlist.append(t4)
+
+    if tlist[4]:
+
+        t5 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None),
+                    mode='markers',
+                    marker=dict(size=[3]*200, line=dict(width=0)),
+                    name='MMD-Trained Error',
+                    marker_color = 'rgba(0,63,114,1.0)'
+        ))
+        plotlist.append(t5)
+
+    if tlist[5]:
+
+        t6 = (go.Scatter(x=xspa, y=lspa,
+                    mode='lines',
+                    name='LSQ-Trained Quadratic',
+                    marker_color = 'rgba(198,12,48,1.0)'
+        ))
+        plotlist.append(t6)
+
+    if tlist[6]:
+        
+        t7 = (go.Scatter(x=np.concatenate((xspa,xspa), axis=None), y=np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None),
+                    mode='markers',
+                    marker=dict(size=[3]*200, line=dict(width=0)),
+                    name='LSQ-Trained Error',
+                    marker_color = 'rgba(198,12,48,1.0)'
+        ))
+        plotlist.append(t7)
+
+    fig = go.Figure(data = plotlist)
+
+    if plotlist == []:
+        fig.update_layout(yaxis_range=[-1,1],xaxis_range=[-1,1])
+    else:
+        fig.update_layout(xaxis_title="t / L", yaxis_title="x")
+
+    return fig
+
 MLS, LLS, MFS, LFS = preparetestlevelsandfits()
+MLS2, LLS2, MFS2, LFS2 = preparetestlevelsandfitstwo()
 cLs = preparecLspace()
+psis = preparepsispace()
 # -----------------------------------------------------------------------------
 # Draw the actual page
 lcol, rcol = st.columns(2)
