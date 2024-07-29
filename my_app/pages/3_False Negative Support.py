@@ -80,7 +80,7 @@ def makeplot2(id,mfs,lfs,tlist):
 
     plotlist = []
     ids = str(id)
-    tsam,xsam,xspa,yspa,l = prepareplotdata(ids)
+    tsam,xsam,xspa,yspa,l = prepareplotdata2(ids)
 
     mp = mfs[id]
     mspa = mp[0]*(xspa**2) + mp[1]*xspa + mp[2]
