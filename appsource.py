@@ -80,35 +80,7 @@ def prepareplotdata(rs):
 
     return tsample,xsample,yspace.flatten(),L
 
-def makeplot(id,mfs,lfs):
-
-    ids = str(id)
-    tsam,xsam,yspa,l = prepareplotdata(ids)
-    xspa = np.linspace(-l,l,100).flatten()
-
-    mp = mfs[id]
-    mspa = mp[0]*(xspa**2) + mp[1]*xspa + mp[2]
-    lp = lfs[id]
-    lspa = lp[0]*(xspa**2) + lp[1]*xspa + lp[2]
-
-    xspa = np.linspace(-1,1,100)
-    tsam = tsam/l
-
-    fig, ax = plt.subplots()
-
-    ax.scatter(tsam,xsam, s = [10.0]*200, color = (0.0,0.0,0.0), label = 'Generated Data')
-    ax.plot(xspa,yspa, color = (0.0,0.0,0.0), label = 'True Trend')
-    ax.plot(xspa,mspa, color = (0.0,0.247058823529412,0.447058823529412), label = 'MMD-Trained Quadratic')
-    ax.scatter(np.concatenate((xspa,xspa), axis=None),np.concatenate(((mspa+mp[3]),(mspa-mp[3])), axis=None), s = [10.0]*200, color = (0.0,0.247058823529412,0.447058823529412), label = 'MMD-Trained Error')
-    ax.plot(xspa,lspa, color = (0.776470588235294,0.0470588235294118,0.188235294117647), label = 'LSQ-Trained Quadratic')
-    ax.scatter(np.concatenate((xspa,xspa), axis=None),np.concatenate(((lspa+lp[3]),(lspa-lp[3])), axis=None), s = [10.0]*200, color = (0.776470588235294,0.0470588235294118,0.188235294117647), label = 'LSQ-Trained Error')
-    ax.set_xlabel('t/L') 
-    ax.set_ylabel('x') 
-    ax.legend()
-
-    return fig
-
-def makeplottwo(id,mfs,lfs,tlist):
+def makeplot(id,mfs,lfs,tlist):
 
     plotlist = []
     ids = str(id)
@@ -236,7 +208,7 @@ with lcol:
     #st.metric('LSQ-Trained Standard Deviation from Trained Trend.',(LFS[cLselector][-1]))
 
 with rcol:
-    st.plotly_chart(makeplottwo(cLselector,MFS,LFS,[p1,p2,p3,p4,p5,p6,p7]), use_container_width=True)
+    st.plotly_chart(makeplot(cLselector,MFS,LFS,[p1,p2,p3,p4,p5,p6,p7]), use_container_width=True)
 
     f = open("GoingPowerProfile1.svg","r")
     lines = f.readlines()
