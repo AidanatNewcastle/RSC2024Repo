@@ -74,7 +74,7 @@ def preparepsispace():
 @st.cache_data
 def preparetestlevelsandfits():
 
-    Bbuffer = 'PowerTestFits.h5'
+    Bbuffer = 'FPPowerTestFits.h5'
     with h5.File(Bbuffer,'r') as B:
         mmdlevelspace = quickget('MMDLevel',B)
         lsqlevelspace = quickget('LSQLevel',B)
