@@ -9,7 +9,7 @@ import textwrap
 
 # Set the title and favicon that appear in the Browser's tab bar.
 st.set_page_config(
-    page_title='Robust Kernelised Composite Goodness-of-Fit Testing for Conditional Relationships Supplemental Web App',
+    page_title='Kernelised Composite Goodness-of-Fit Testing for Conditional Relationships Supplemental Web App',
     page_icon=':globe_with_meridians:', 
     layout = "wide"
 )
@@ -330,7 +330,7 @@ lcol, rcol = st.columns(2)
 # Set the title that appears at the top of the page.
 with lcol:
     '''
-    # :globe_with_meridians: Robust Kernelised Composite Goodness-of-Fit Testing for Conditional Relationships Supplemental Web App
+    # :globe_with_meridians: Kernelised Composite Goodness-of-Fit Testing for Conditional Relationships Supplemental Web App
 
     Hello! This a Streamlit-powered web app to support a poster made for RSC Exeter 2024. This contextualises a figure profiling the power of a statistical test presented on the poster, namely by letting the reader see the data plotted, point-by-point, next to the underlying test each plotted point represents with the ability to select and deselect elements of a demonstrative Plotly chart. The principle image of the figure is included here as well. 
 
